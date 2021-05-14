@@ -3,7 +3,7 @@ import os, sys, time, subprocess
 from pytube import Playlist, YouTube, exceptions
 from tqdm import tqdm
 
-class bcolors:
+class c:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
     OKCYAN = '\033[96m'
@@ -33,7 +33,7 @@ def add_directory(path):
         else:
             os.mkdir(path)
     except OSError:
-        print(f"{bcolors.WARNING}Creation of directory '{path}' failed{bcolors.ENDC}")
+        print(f"{b.WARNING}Creation of directory '{path}' failed{b.ENDC}")
     else:
         print(f"'{path}' directory successfully created")
 
@@ -44,10 +44,10 @@ def dlPl(list, di, _res):
         try:
             p = YouTube(list[url])
         except:
-            tqdm.write(f'{bcolors.WARNING}[{url+1}]\t{p.title} is unavaialable, skipping.{bcolors.ENDC}')
+            tqdm.write(f'{b.WARNING}[{url+1}]\t{p.title} is unavaialable, skipping.{b.ENDC}')
         else:  
             if not os.path.exists(os.getcwd()+"/"+di+"/"+p.title+'.mp4'):
-                tqdm.write(f'{bcolors.OKCYAN}[{url+1}]\tDownloading {p.title} ...{bcolors.ENDC}')
+                tqdm.write(f'{b.OKCYAN}[{url+1}]\tDownloading {p.title} ...{b.ENDC}')
                 p.streams.filter(res=str(_res)+'p').first().download(os.getcwd()+"/"+di)
             else:
                 tqdm.write(f'[{url+1}] {p.title} already exist, skipping')
@@ -60,7 +60,7 @@ if __name__ == '__main__':
     URL = str(input('Target URL : '))
     _res = int(input('Resolution : '))
     if _res not in [144, 240, 360, 720, 1080, 1440, 2160]:
-        print(f'{bcolors.WARNING}Not valid Resolution{bcolors.ENDC}')
+        print(f'{b.WARNING}Not valid Resolution{b.ENDC}')
         exit()
 
     if verifyURL(URL):
